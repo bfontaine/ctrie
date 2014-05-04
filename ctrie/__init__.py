@@ -104,6 +104,34 @@ class CTrie(object):
                 return child.add(_slice_prefix(prefix, word))
 
         # split a child prefix
+        """
+        The goal of the code below is to (if possible) go from the following
+        trie:
+
+            <root>
+              |
+              ...
+              +-- foobar
+                    |
+                    +-- qux
+
+        to the following one, after insertion of the word 'foo123':
+
+            <root>
+              |
+              ...
+              +-- foo
+                    |
+                    +-- bar
+                    |    |
+                    |    +-- qux
+                    |
+                    +-- 123
+
+        We're essentially creating an intermediate node (called ``middle`` in
+        the following code) with the good prefix, which is the longest common
+        prefix between the original node prefix and the inserted word.
+        """
         for prefix, child in self._children.items():
             lcp = _lcp(prefix, word)
             if lcp:
