@@ -14,7 +14,7 @@ endif
 
 .PHONY: check check-versions stylecheck covercheck docs
 
-default: check-versions
+default: deps check-versions
 
 deps:
 	pip install -qr requirements.txt
