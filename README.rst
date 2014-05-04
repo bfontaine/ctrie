@@ -6,7 +6,7 @@ ctrie
    :target: https://travis-ci.org/bfontaine/ctrie
    :alt: Build status
 
-.. image:: https://img.shields.io/coveralls/bfontaine/ctrie/master.png
+.. image:: https://coveralls.io/repos/bfontaine/ctrie/badge.png?branch=master
    :target: https://coveralls.io/r/bfontaine/ctrie?branch=master
    :alt: Coverage status
 
