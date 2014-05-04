@@ -19,7 +19,8 @@ class CTrie(object):
         self._children = {}
         self.terminal = terminal
 
-    def add(self, word):
+
+    def _add(self, word):
         if word == '':
             self.terminal = True
             return
@@ -37,12 +38,22 @@ class CTrie(object):
         raise NotImplementedError
 
 
-    def remove(self, word):
+    def _remove(self, word):
         if word == '' and self.terminal:
             self.terminal = False
             return
 
         raise NotImplementedError
+
+
+    def add(self, *words):
+        for word in words:
+            self._add(word)
+
+
+    def remove(self, *words):
+        for word in words:
+            self._remove(word)
 
 
     # Check if the current trie is empty
