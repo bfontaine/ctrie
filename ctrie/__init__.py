@@ -36,12 +36,19 @@ class CTrie(object):
 
         raise NotImplementedError
 
+
     def remove(self, word):
         if word == '' and self.terminal:
             self.terminal = False
             return
 
         raise NotImplementedError
+
+
+    # Check if the current trie is empty
+    def is_empty(self):
+        return not (self._children or self.terminal)
+
 
     def __contains__(self, word):
         if word == '' and self.terminal:
