@@ -15,18 +15,22 @@ def _sliceprefix(prefix, word):
 
 class CTrie(object):
 
-    def __init__(self):
+    def __init__(self, terminal=False):
         self._children = {}
-        self.terminal = True
+        self.terminal = terminal
 
     def add(self, word):
-        if word == '' and not self.terminal:
+        if word == '':
             self.terminal = True
             return
 
         for prefix, child in self._children.items():
             if _isprefix(prefix, word):
                 return child.add(_sliceprefix(prefix, word))
+
+        if not self._children:
+            self._children[word] = CTrie(terminal=True)
+            return
 
         # TODO
 
