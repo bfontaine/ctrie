@@ -9,6 +9,12 @@ else:
 
 from os.path import dirname
 
+import ctrie
+
+class TestCTrie(unittest.TestCase):
+    def test_version(self):
+        self.assertRegexpMatches(ctrie.__version__, r'^\d+\.\d+\.\d+')
+
 if __name__ == '__main__':
     here = dirname(__file__)
     sys.path.insert(0, here+'/..')
