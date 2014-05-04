@@ -24,8 +24,10 @@ def _lcp(word1, word2):
     return word1 if len(word1) < len(word2) else word2
 
 
+# A compact trie
 class CTrie(object):
 
+    # Create a trie
     def __init__(self, terminal=False):
         self._children = {}
         self.terminal = terminal
@@ -73,7 +75,8 @@ class CTrie(object):
         return True
 
     # Remove a word from the trie, return True or False depending on if the
-    # word was in the trie or not.
+    # word was in the trie or not. This function might result in an unoptimized
+    # trie.
     def _remove(self, word):
         if word == '':
             self.terminal = False
