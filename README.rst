@@ -17,16 +17,14 @@ ctrie
 .. image:: https://img.shields.io/pypi/dm/ctrie.png
    :target: https://pypi.python.org/pypi/ctrie
 
-``ctrie`` is a compact trie implementation in Python. Its main goal is to
-optimize the storage of large datasets of similar small piece of text with a
-lot of common prefixes.
+``ctrie`` is a compact trie implementation in Python.
 
 Install
 -------
 
 .. code-block::
 
-    pip install ctrie
+    [sudo] pip install ctrie
 
 The library works with both Python 2.x and 3.x.
 
@@ -35,4 +33,4 @@ Usage
 
 `Read the docs`_.
 
-.. _Read the docs: http://ctrie.readthedocs.org/en/latest/
+.. _Read the docs: http://ctrie.readthedocs.org/en/latest/api_reference.html
