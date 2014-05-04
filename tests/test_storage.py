@@ -22,35 +22,41 @@ class TestStorage(unittest.TestCase):
 
     def test_empty_string(self):
         self.assertNotIn('', self.ct)
-        self.ct.add('')
+        self.assertTrue(self.ct.add(''))
         self.assertIn('', self.ct)
 
     def test_one_word_in(self):
         w = "foo"
-        self.ct.add(w)
+        self.assertTrue(self.ct.add(w))
+        self.assertIn(w, self.ct)
+
+    def test_add_duplicates(self):
+        w = "foo"
+        self.assertTrue(self.ct.add(w))
+        self.assertFalse(self.ct.add(w))
         self.assertIn(w, self.ct)
 
     def test_two_words_empty_common_prefix(self):
         w1, w2 = "foo", "bar"
-        self.ct.add(w1, w2)
+        self.assertTrue(self.ct.add(w1, w2))
         self.assertIn(w1, self.ct)
         self.assertIn(w2, self.ct)
 
     def test_two_words_with_common_prefix(self):
         w1, w2 = "fooqux", "foobar"
-        self.ct.add(w1, w2)
+        self.assertTrue(self.ct.add(w1, w2))
         self.assertIn(w1, self.ct)
         self.assertIn(w2, self.ct)
 
     def test_two_words_with_one_prefix_of_the_other_first(self):
         w1, w2 = "foo", "foobar"
-        self.ct.add(w1, w2)
+        self.assertTrue(self.ct.add(w1, w2))
         self.assertIn(w1, self.ct)
         self.assertIn(w2, self.ct)
 
     def test_two_words_with_one_prefix_of_the_other_second(self):
         w1, w2 = "foobar", "foo"
-        self.ct.add(w1, w2)
+        self.assertTrue(self.ct.add(w1, w2))
         self.assertIn(w1, self.ct)
         self.assertIn(w2, self.ct)
 
