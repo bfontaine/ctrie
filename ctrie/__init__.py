@@ -65,6 +65,8 @@ class CTrie(object):
     >>> c.remove("foo")
     >>> "foo" in c
     False
+    >>> len(c)
+    2
 
     Keyword arguments:
             - ``terminal`` (``bool``, default: ``False``): specifies if the
@@ -196,6 +198,9 @@ class CTrie(object):
         return not (self._children or self.terminal)
 
     def __contains__(self, word):
+        """
+        Check if the trie contains a given word.
+        """
         if word == '' and self.terminal:
             return True
 
@@ -205,3 +210,11 @@ class CTrie(object):
                 return True
 
         return False
+
+    def __len__(self):
+        """
+        Compute the number of words in the trie. This result should be cached
+        because we're recursively checking every node in the trie here.
+        """
+        init = 1 if self.terminal else 0
+        return init + sum(map(len, self._children.values()))

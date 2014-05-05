@@ -110,3 +110,21 @@ class TestStorage(unittest.TestCase):
         self.assertNotIn(w2, self.ct)
         self.assertNotIn(w3, self.ct)
 
+
+    # len
+
+    def test_empty_len(self):
+        self.assertEqual(0, len(self.ct))
+
+    def test_one_word_len(self):
+        self.ct.add('foo')
+        self.assertEqual(1, len(self.ct))
+
+    def test_one_word_prefix_of_another_len(self):
+        self.ct.add('foo', 'foobar')
+        self.assertEqual(2, len(self.ct))
+
+    def test_multiple_words_len(self):
+        words = ['foo', 'q', 'bar', 's o m e t h i n g', 'hello']
+        self.ct.add(*words)
+        self.assertEqual(len(words), len(self.ct))
