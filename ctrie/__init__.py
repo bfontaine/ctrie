@@ -76,6 +76,8 @@ class CTrie(object):
               >>> ct.add('')  # empty string
     """
 
+    __slots__ = ['_children', 'terminal']
+
     def __init__(self, terminal=False):
         self._children = {}
         self.terminal = terminal
