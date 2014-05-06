@@ -8,13 +8,25 @@ This module provides a compact trie (``CTrie``) implementation for Python.
 
 __version__ = '0.1.0'
 
-
-def _is_prefix(prefix, word):
-    return word.startswith(prefix)
-
-
 def _slice_prefix(prefix, word):
     return word[len(prefix):]
+
+def _cut_prefix(prefix, word):
+    """
+    test if ``prefix`` is a prefix of ``word``. If so, return the trailing part
+    of ``word``, or ``None`` if not.
+    """
+    lprefix = len(prefix)
+    lword = len(word)
+
+    if lprefix > lword:
+        return None
+
+    for i in range(lprefix):
+        if prefix[i] != word[i]:
+            return None
+
+    return word[lprefix:]
 
 
 # longuest common prefix
@@ -104,8 +116,9 @@ class CTrie(object):
                     return True
                 return False
 
-            if _is_prefix(prefix, word):
-                return child.add(_slice_prefix(prefix, word))
+            trailing = _cut_prefix(prefix, word)
+            if trailing is not None:
+                return child.add(trailing)
 
         # split a child prefix
         """
@@ -160,8 +173,9 @@ class CTrie(object):
             return True
 
         for prefix, child in self._children.items():
-            if _is_prefix(prefix, word):
-                ret = child._remove(_slice_prefix(prefix, word))
+            trailing = _cut_prefix(prefix, word)
+            if trailing is not None:
+                ret = child._remove(trailing)
                 if child.is_empty():
                     del self._children[prefix]
                 return ret
@@ -207,8 +221,8 @@ class CTrie(object):
             return True
 
         for prefix, child in self._children.items():
-            if _is_prefix(prefix, word) and \
-                    _slice_prefix(prefix, word) in child:
+            trailing = _cut_prefix(prefix, word)
+            if trailing is not None and trailing in child:
                 return True
 
         return False
