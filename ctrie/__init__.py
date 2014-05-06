@@ -6,7 +6,7 @@ This module provides a compact trie (``CTrie``) implementation for Python.
 .. moduleauthor:: Baptiste Fontaine <b@ptistefontaine.fr>
 """
 
-__version__ = '0.0.1'
+__version__ = '0.1.0'
 
 
 def _is_prefix(prefix, word):
