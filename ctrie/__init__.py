@@ -213,6 +213,19 @@ class CTrie(object):
         """
         return not (self._children or self.terminal)
 
+    def height(self):
+        """
+        Compute the height of the trie. An empty trie has a zero height, and
+        the maximum height of a compacted trie is the length of its longuest
+        word.
+
+        .. versionadded:: 0.1.0
+        """
+        if not self._children:
+            return 0
+
+        return 1 + max(map(lambda c: c.height(), self._children.values()))
+
     def __contains__(self, word):
         """
         Check if the trie contains a given word.

@@ -128,3 +128,21 @@ class TestStorage(unittest.TestCase):
         words = ['foo', 'q', 'bar', 's o m e t h i n g', 'hello']
         self.ct.add(*words)
         self.assertEqual(len(words), len(self.ct))
+
+
+    # height
+
+    def test_empty_height(self):
+        self.assertEqual(0, self.ct.height())
+
+    def test_one_level_height(self):
+        self.ct.add('foo', 'bar', 'qux')
+        self.assertEqual(1, self.ct.height())
+
+    def test_two_level_height(self):
+        self.ct.add('foo', 'fbar', 'qux')
+        self.assertEqual(2, self.ct.height())
+
+    def test_large_trie_height(self):
+        self.ct.add('aaa', 'aab', 'aba', 'abb', 'baa', 'bab', 'bba', 'bbb')
+        self.assertEqual(3, self.ct.height())
