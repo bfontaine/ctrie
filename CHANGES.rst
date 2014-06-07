@@ -3,7 +3,8 @@ v0.1.0 (in development)
 
 - memory footprint reduced
 - ``len`` support
-- ``CTrie#height`` method added
+- ``CTrie#height`` and ``CTrie#values`` methods added
+
 
 v0.0.1
 ------
