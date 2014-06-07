@@ -1,4 +1,4 @@
-v0.1.0 (in development)
+v0.1.0
 ------
 
 - memory footprint reduced
