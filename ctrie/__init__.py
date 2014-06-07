@@ -8,8 +8,10 @@ This module provides a compact trie (``CTrie``) implementation for Python.
 
 __version__ = '0.1.0'
 
+
 def _slice_prefix(prefix, word):
     return word[len(prefix):]
+
 
 def _cut_prefix(prefix, word):
     """
