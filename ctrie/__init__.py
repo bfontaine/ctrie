@@ -189,6 +189,16 @@ class CTrie(object):
         Add one or more words in the trie. The function returns ``True`` if all
         words were successfully added. It'll return ``False`` if one or more
         words were already present in the trie.
+
+        >>> ct = CTrie()
+        >>> ct.add('foo', 'bar')
+        True
+        >>> 'foo' in ct
+        True
+        >>> ct.add('bar')
+        False
+        >>> ct.add('qux')
+        True
         """
         ret = True
         for word in words:
@@ -202,6 +212,18 @@ class CTrie(object):
         if all the words were successfully removed (i.e. they were in the trie
         before) or ``False`` if one or more words couldn't be found in the
         trie.
+
+        >>> ct = CTrie()
+        >>> ct.add('foo', 'qux')
+        True
+        >>> 'bar' in ct
+        True
+        >>> ct.remove('foo', 'bar')
+        False
+        >>> 'bar' in ct
+        False
+        >>> ct.remove('qux')
+        >>> True
         """
         ret = True
         for word in words:
@@ -212,6 +234,14 @@ class CTrie(object):
     def is_empty(self):
         """
         Return ``True`` if the trie is empty.
+
+        >>> ct = CTrie()
+        >>> ct.is_empty()
+        True
+        >>> ct.add('')
+        True
+        >>> ct.is_empty()
+        False
         """
         return not (self._children or self.terminal)
 
@@ -220,6 +250,18 @@ class CTrie(object):
         Compute the height of the trie. An empty trie has a zero height, and
         the maximum height of a compacted trie is the length of its longuest
         word.
+
+        >>> ct = CTrie()
+        >>> ct.height()
+        0
+        >>> ct.add(''); ct.height()
+        0
+        >>> ct.add('foo'); ct.height()
+        1
+        >>> ct.add('bar'); ct.height()
+        1
+        >>> ct.add('boo'); ct.height()
+        2
 
         .. versionadded:: 0.1.0
         """
@@ -230,8 +272,17 @@ class CTrie(object):
 
     def values(self):
         """
-        Yield all values from this trie. The order in which they're yielded
-        doesn't depend on the order in which they're inserted.
+        Yield all values from this trie in arbitrary order. The order in which
+        they're yielded doesn't depend on the order in which they're inserted.
+
+        >>> ct = CTrie()
+        >>> ct.add('foo', 'bar', 'qux')
+        True
+        >>> for x in ct.values(): print x
+        ...
+        qux
+        foo
+        bar
 
         .. versionadded:: 0.1.0
         """
