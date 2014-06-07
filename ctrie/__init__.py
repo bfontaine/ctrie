@@ -216,11 +216,11 @@ class CTrie(object):
         >>> ct = CTrie()
         >>> ct.add('foo', 'qux')
         True
-        >>> 'bar' in ct
+        >>> 'foo' in ct
         True
         >>> ct.remove('foo', 'bar')
         False
-        >>> 'bar' in ct
+        >>> 'foo' in ct
         False
         >>> ct.remove('qux')
         >>> True
