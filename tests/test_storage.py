@@ -15,8 +15,16 @@ class TestStorage(unittest.TestCase):
     def setUp(self):
         self.ct = CTrie()
 
+    # empty
+
     def test_empty(self):
         self.assertTrue(self.ct.is_empty())
+
+    def test_terminal_not_empty(self):
+        ct = CTrie(terminal=True)
+        self.assertFalse(ct.is_empty())
+        self.ct.add('')
+        self.assertFalse(self.ct.is_empty())
 
     # add / in
 
