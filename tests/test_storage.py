@@ -146,3 +146,21 @@ class TestStorage(unittest.TestCase):
     def test_large_trie_height(self):
         self.ct.add('aaa', 'aab', 'aba', 'abb', 'baa', 'bab', 'bba', 'bbb')
         self.assertEqual(3, self.ct.height())
+
+
+    # values
+
+    def test_empty_values(self):
+        self.assertSequenceEqual([], list(self.ct.values()))
+
+    def test_one_level_values(self):
+        strs = ['foo', 'bar', 'qux']
+        self.ct.add(*strs)
+        self.assertSequenceEqual(sorted(strs), sorted(list(self.ct.values())))
+
+    def test_large_trie_values(self):
+        strs = ['foo', 'bar', 'qux', 'faa', 'foobar', 'qax', 'zoo', 'qwerty',
+                'azerty', 'hello', 'hi', 'home', 'barfoo', 'barfoobar', 'z',
+                'f', 'b', 'fd', 'fdd', 'word', 'words', 'wood', 'woo']
+        self.ct.add(*strs)
+        self.assertSequenceEqual(sorted(strs), sorted(list(self.ct.values())))

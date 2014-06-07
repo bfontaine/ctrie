@@ -226,6 +226,23 @@ class CTrie(object):
 
         return 1 + max(map(lambda c: c.height(), self._children.values()))
 
+    def values(self):
+        """
+        Yield all values from this trie. The order in which they're yielded
+        doesn't depend on the order in which they're inserted.
+
+        .. versionadded:: 0.1.0
+        """
+        if self.is_empty():
+            return
+
+        for prefix, child in self._children.items():
+            if child.terminal:
+                yield prefix
+
+            for value in child.values():
+                yield prefix + value
+
     def __contains__(self, word):
         """
         Check if the trie contains a given word.
