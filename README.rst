@@ -33,4 +33,4 @@ Usage
 
 `Read the docs`_.
 
-.. _Read the docs: http://ctrie.readthedocs.org/en/latest/api_reference.html
+.. _Read the docs: http://ctrie.readthedocs.io/en/latest/api_reference.html
