@@ -23,13 +23,15 @@ endif
 default: deps check-versions
 
 deps: $(VENV)
-	$(PIP) install -qr requirements.txt
+	$(PIP) install -r requirements.txt
 ifeq ($(PY_VERSION_SHORT),2.6)
-	$(PIP) install -q unittest2
+	$(PIP) install unittest2
 endif
 ifneq ($(PY_VERSION_SHORT),3.3)
 ifneq ($(PY_VERSION_SHORT),3.4)
-	$(PIP) install -q wsgiref==0.1.2
+ifneq ($(PY_VERSION_SHORT),3.5)
+	$(PIP) install wsgiref==0.1.2
+endif
 endif
 endif
 
