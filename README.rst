@@ -14,9 +14,6 @@ ctrie
    :target: https://pypi.python.org/pypi/ctrie
    :alt: Pypi package
 
-.. image:: https://img.shields.io/pypi/dm/ctrie.png
-   :target: https://pypi.python.org/pypi/ctrie
-
 ``ctrie`` is a compact trie implementation in Python.
 
 Install
