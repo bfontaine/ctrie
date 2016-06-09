@@ -9,26 +9,13 @@ This module provides a compact trie (``CTrie``) implementation for Python.
 __version__ = '0.1.0'
 
 
-def _slice_prefix(prefix, word):
-    return word[len(prefix):]
-
-
 def _cut_prefix(prefix, word):
     """
     test if ``prefix`` is a prefix of ``word``. If so, return the trailing part
     of ``word``, or ``None`` if not.
     """
-    lprefix = len(prefix)
-    lword = len(word)
-
-    if lprefix > lword:
-        return None
-
-    for i in range(lprefix):
-        if prefix[i] != word[i]:
-            return None
-
-    return word[lprefix:]
+    if word.startswith(prefix):
+        return word[len(prefix):]
 
 
 # longuest common prefix
@@ -155,8 +142,8 @@ class CTrie(object):
             lcp = _lcp(prefix, word)
             if lcp:
                 middle = CTrie()
-                origin = _slice_prefix(lcp, prefix)
-                new_branch = _slice_prefix(lcp, word)
+                origin = prefix[len(lcp):]
+                new_branch = word[len(lcp):]
                 middle._children[origin] = child
                 middle._children[new_branch] = CTrie(terminal=True)
                 del self._children[prefix]
