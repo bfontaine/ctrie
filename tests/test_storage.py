@@ -175,9 +175,9 @@ class TestStorage(unittest.TestCase):
     # iter
 
     def test_iter(self):
-        strs = ['foo', 'bar', 'qux', 'bar', 'fo', 'fooo']
+        strs = ['foo', 'bar', 'qux', 'baar', 'fo', 'fooo']
         self.ct.add(*strs)
-        self.assertSequenceEqual(sorted(strs), sorted(e for e in strs))
+        self.assertSequenceEqual(sorted(strs), sorted(e for e in self.ct))
 
     # iadd
 
