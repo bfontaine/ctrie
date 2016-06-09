@@ -1,8 +1,5 @@
 # -*- coding: UTF-8 -*-
 
-from os.path import dirname
-import sys
-
 import setuptools
 from distutils.core import setup
 
@@ -34,6 +31,7 @@ ctrie is a compact trie implementation for Python""",
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
     ],
