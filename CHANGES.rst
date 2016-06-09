@@ -1,3 +1,10 @@
+v0.1.1
+------
+
+- ``__iter__`` added
+- ``__iadd__`` implemented, allowing you to extend a trie with `+=` and an
+  iterable
+
 v0.1.0
 ------
 
