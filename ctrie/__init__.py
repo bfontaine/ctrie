@@ -307,3 +307,8 @@ class CTrie(object):
 
     def __iter__(self):
         return self.values()
+
+    def __iadd__(self, other):
+        for word in other:
+            self._add(word)
+        return self
