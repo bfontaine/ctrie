@@ -7,7 +7,6 @@ if platform.python_version() < '2.7':
 else:
     import unittest
 
-import ctrie
 from ctrie import CTrie
 
 class TestStorage(unittest.TestCase):
@@ -172,3 +171,17 @@ class TestStorage(unittest.TestCase):
                 'f', 'b', 'fd', 'fdd', 'word', 'words', 'wood', 'woo']
         self.ct.add(*strs)
         self.assertSequenceEqual(sorted(strs), sorted(list(self.ct.values())))
+
+    # iter
+
+    def test_iter(self):
+        strs = ['foo', 'bar', 'qux', 'bar', 'fo', 'fooo']
+        self.ct.add(*strs)
+        self.assertSequenceEqual(sorted(strs), sorted(e for e in strs))
+
+    # iadd
+
+    def test_iadd(self):
+        self.ct += ['foo', 'bar']
+        self.assertIn('foo', self.ct)
+        self.assertIn('bar', self.ct)
