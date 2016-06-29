@@ -19,8 +19,8 @@ def _cut_prefix(prefix, word):
 
 
 def _longuest_common_prefix(word1, word2):
-    for i, (c1, c2) in enumerate(zip(word1, word2)):
-        if c1 != c2:
+    for i in range(min(len(word1), len(word2))):
+        if word1[i] != word2[i]:
             return word1[:i]
 
     return word1 if len(word1) < len(word2) else word2
