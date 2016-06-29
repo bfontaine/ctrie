@@ -18,8 +18,7 @@ def _cut_prefix(prefix, word):
         return word[len(prefix):]
 
 
-# longuest common prefix
-def _lcp(word1, word2):
+def _longuest_common_prefix(word1, word2):
     for i, (c1, c2) in enumerate(zip(word1, word2)):
         if c1 != c2:
             return word1[:i]
@@ -139,7 +138,7 @@ class CTrie(object):
         prefix between the original node prefix and the inserted word.
         """
         for prefix, child in self._children.items():
-            lcp = _lcp(prefix, word)
+            lcp = _longuest_common_prefix(prefix, word)
             if lcp:
                 middle = CTrie()
                 origin = prefix[len(lcp):]
