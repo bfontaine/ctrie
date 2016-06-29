@@ -176,6 +176,59 @@ class TestStorage(unittest.TestCase):
         self.ct.add(*strs)
         self.assertSequenceEqual(sorted(strs), sorted(list(self.ct.values())))
 
+    # ==
+
+    def test_eq_empty_other_collections(self):
+        self.assertFalse(self.ct == [])
+        self.assertFalse(self.ct == ())
+        self.assertFalse(self.ct == set())
+
+    def test_eq_empty_tries(self):
+        self.assertTrue(CTrie() == CTrie())
+
+    def test_eq_terminal(self):
+        c2 = CTrie()
+        c2.add('')
+        self.assertFalse(self.ct == c2)
+        self.assertFalse(c2 == self.ct)
+
+        self.ct.add('')
+        self.assertTrue(self.ct == c2)
+        self.assertTrue(c2 == self.ct)
+
+    def test_not_eq(self):
+        c2 = CTrie()
+        c2.add('a', 'b', 'c', 'aa', 'ab', 'ac')
+        self.assertFalse(self.ct == c2)
+        self.assertFalse(c2 == self.ct)
+
+        self.ct.add('a', 'c', 'ab', 'ac')
+        self.assertFalse(self.ct == c2)
+        self.assertFalse(c2 == self.ct)
+
+        self.ct.add('b', 'ab')
+        self.ct.remove('a')
+        self.assertFalse(self.ct == c2)
+        self.assertFalse(c2 == self.ct)
+
+    def test_eq(self):
+        strs = ['a', 'ab', 'abc', 'abd', 'ba', 'x', 'zz', 'zx']
+        c2 = CTrie()
+        c2.add(*strs)
+        self.ct.add(*strs)
+
+        self.assertTrue(c2 == self.ct)
+        self.assertTrue(self.ct == c2)
+
+    def test_eq_different_internal_structure(self):
+        c2 = CTrie()
+        c2.add('abcdef', 'abcxyz')
+        c2.remove('abcxyz')
+
+        self.ct.add('abcdef')
+        self.assertTrue(c2 == self.ct)
+        self.assertTrue(self.ct == c2)
+
     # iter
 
     def test_iter(self):

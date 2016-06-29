@@ -304,6 +304,27 @@ class CTrie(object):
         init = 1 if self.terminal else 0
         return init + sum(map(len, self._children.values()))
 
+    def __eq__(self, other):
+        """
+        Two compact tries are equal if they contain the same set of words. This
+        doesn't guarantee the internal structures are equal.
+        """
+        if not isinstance(other, CTrie):
+            return False
+
+        # Bad complexity but there may be multiple compact tries that recognize
+        # the same set of words because we don't re-compact a trie when we
+        # remove a bunch of words from it.
+        for word in self.values():
+            if word not in other:
+                return False
+
+        for word in other.values():
+            if word not in self:
+                return False
+
+        return True
+
     def __iter__(self):
         return self.values()
 
