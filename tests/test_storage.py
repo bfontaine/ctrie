@@ -160,6 +160,10 @@ class TestStorage(unittest.TestCase):
     def test_empty_values(self):
         self.assertSequenceEqual([], list(self.ct.values()))
 
+    def test_value_empty_string(self):
+        self.ct.add('')
+        self.assertSequenceEqual([''], list(self.ct.values()))
+
     def test_one_level_values(self):
         strs = ['foo', 'bar', 'qux']
         self.ct.add(*strs)

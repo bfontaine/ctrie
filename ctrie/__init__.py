@@ -275,10 +275,10 @@ class CTrie(object):
         if self.is_empty():
             return
 
-        for prefix, child in self._children.items():
-            if child.terminal:
-                yield prefix
+        if self.terminal:
+            yield ''
 
+        for prefix, child in self._children.items():
             for value in child.values():
                 yield prefix + value
 
