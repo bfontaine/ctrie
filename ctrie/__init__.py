@@ -282,6 +282,47 @@ class CTrie(object):
             for value in child.values():
                 yield prefix + value
 
+    def subtree(self, prefix):
+        """
+        Return a subtree that's equivalent to the current one with all values
+        stripped from the given prefix. Values that don't start with this
+        prefix are not included.
+        An empty trie is returned if the prefix doesn't match any value.
+
+        Note that the returned subtree may share its nodes with the current
+        one.
+
+        >>> ct = CTrie()
+        >>> ct.add('foo', 'bar', 'foobar', 'fooo', 'qux')
+        True
+        >>> foo = ct.subtree('foo')
+        >>> list(foo)  # actual order may vary
+        ['', 'bar', 'o']
+        >>> ct.subtree('nope').is_empty()
+        True
+        """
+        if prefix == '':
+            return self
+
+        if prefix in self._children:
+            return self._children[prefix]
+
+        for node_prefix, node in self._children.items():
+            lcp = _longuest_common_prefix(prefix, node_prefix)
+            if not lcp:
+                continue
+
+            root = CTrie()
+            child = CTrie()
+
+            suffix = node_prefix[len(lcp):]
+
+            root._children[suffix] = child
+            child._children = node._children
+            return root
+
+        return CTrie()
+
     def __contains__(self, word):
         """
         Check if the trie contains a given word.

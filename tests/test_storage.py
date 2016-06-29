@@ -176,6 +176,37 @@ class TestStorage(unittest.TestCase):
         self.ct.add(*strs)
         self.assertSequenceEqual(sorted(strs), sorted(list(self.ct.values())))
 
+    # subtree
+
+    def test_empty_subtree_empty_prefix(self):
+        st = self.ct.subtree('')
+        self.assertSequenceEqual([], list(st.values()))
+
+    def test_empty_subtree(self):
+        st = self.ct.subtree('something')
+        self.assertSequenceEqual([], list(st.values()))
+
+    def test_subtree_empty_prefix(self):
+        strs = ['foo', 'foobar']
+        self.ct.add(*strs)
+        st = self.ct.subtree('')
+        self.assertSequenceEqual(sorted(strs), sorted(st.values()))
+
+    def test_subtree_nonmatching_prefix(self):
+        self.ct.add('a', 'b', 'c', 'd')
+        st = self.ct.subtree('e')
+        self.assertSequenceEqual([], list(st.values()))
+
+    def test_subtree_matching_prefix(self):
+        self.ct.add('fooa', 'foob', 'fooc', 'food')
+        st = self.ct.subtree('foo')
+        self.assertSequenceEqual(['a', 'b', 'c', 'd'], sorted(st.values()))
+
+    def test_subtree_matching_prefix_cut(self):
+        self.ct.add('fooa', 'foob', 'fooc', 'food')
+        st = self.ct.subtree('fo')
+        self.assertSequenceEqual(['oa', 'ob', 'oc', 'od'], sorted(st.values()))
+
     # ==
 
     def test_eq_empty_other_collections(self):
