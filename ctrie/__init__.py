@@ -335,19 +335,53 @@ class CTrie(object):
 
         return writer
 
-
     def write_pretty_string(self, writer):
         """
+        Equivalent of ``pretty_string`` that uses the given writer's ``.write``
+        method.
         """
         return self._write_pretty_string(writer, "")
 
     def pretty_string(self):
+        """
+        Return a pretty-printed version of the internal state of the tree. It
+        helps understand how words are split to fit in a tree.
+        """
         writer = self.write_pretty_string(StringIO())
         writer.seek(0)
         return writer.read()
 
+    # Export
+    # ======
 
-    # magic methods
+    def to_dict(self):
+        """
+        Recursively convert the tree to a dictionary.
+        """
+        return {
+            "terminal": self.terminal,
+            "children": {prefix: ch.to_dict()
+                            for prefix, ch in self._children.items()},
+        }
+
+    @classmethod
+    def from_dict(cls, d):
+        """
+        Take a dictionary in the format returned by ``to_dict`` and build a new
+        instance.
+        """
+        instance = CTrie(terminal=bool(d.get("terminal")))
+
+        children = d.get("children", {})
+        if children:
+            for prefix, ch in children.items():
+                instance._children[prefix] = cls.from_dict(ch)
+
+        return instance
+
+
+    # Magic Methods
+    # =============
 
     def __contains__(self, word):
         """

@@ -219,6 +219,14 @@ class TestStorage(unittest.TestCase):
         self.ct.add("foobar")
         self.assertEqual("\nfoo\n   bar\n", self.ct.pretty_string())
 
+    # {to,from}_dict
+
+    def test_dict_conversion(self):
+        self.assertEqual(self.ct, CTrie.from_dict(self.ct.to_dict()))
+
+        self.ct.add("foo", "bar", "foobarqux", "foobqr")
+        self.assertEqual(self.ct, CTrie.from_dict(self.ct.to_dict()))
+
     # ==
 
     def test_eq_empty_other_collections(self):
