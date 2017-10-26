@@ -267,9 +267,30 @@ class TestStorage(unittest.TestCase):
         self.ct.add(*strs)
         self.assertSequenceEqual(sorted(strs), sorted(e for e in self.ct))
 
-    # iadd
+    def test_nonzero(self):
+        self.assertFalse(self.ct)
+        self.ct.add("")
+        self.assertTrue(self.ct)
+
+    # iadd & friends
 
     def test_iadd(self):
         self.ct += ['foo', 'bar']
         self.assertIn('foo', self.ct)
         self.assertIn('bar', self.ct)
+
+    def test_isub(self):
+        self.ct.add("foo", "bar", "qux")
+        self.ct -= {"foo", "qux"}
+        self.assertSequenceEqual(["bar"], list(self.ct.values()))
+
+    def test_ior(self):
+        self.ct |= ['foo', 'bar']
+        self.assertIn('foo', self.ct)
+        self.assertIn('bar', self.ct)
+
+    def test_iand(self):
+        self.ct.add("foo", "bar", "qux", "he")
+        self.ct &= ["tutu", "qux", "ho", "bar"]
+
+        self.assertSequenceEqual(["bar", "qux"], sorted(self.ct.values()))

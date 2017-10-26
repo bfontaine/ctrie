@@ -371,7 +371,30 @@ class CTrie(object):
     def __iter__(self):
         return self.values()
 
+    def __nonzero__(self):
+        return not self.empty()
+
     def __iadd__(self, other):
         for word in other:
             self._add(word)
+        return self
+
+    def __ior__(self, other):
+        return self.__iadd__(other)
+
+    def __isub__(self, other):
+        for word in other:
+            self._remove(word)
+        return self
+
+    def __iand__(self, other):
+        words_to_remove = []
+
+        for word in self.values():
+            if word not in other:
+                words_to_remove.append(word)
+
+        for word in words_to_remove:
+            self._remove(word)
+
         return self
