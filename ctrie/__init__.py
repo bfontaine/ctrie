@@ -325,28 +325,24 @@ class CTrie(object):
 
         return CTrie()
 
-    def _pretty_string(self, writer, indent_string):
+    def _write_pretty_string(self, writer, indent_string):
         if self.terminal:
             writer.write("\n")
 
         for prefix, ch in self._children.items():
             writer.write("%s%s" % (indent_string, prefix))
-            ch._pretty_string(writer, indent_string + " " * len(prefix))
+            ch._write_pretty_string(writer, indent_string + " " * len(prefix))
 
         return writer
 
 
-    def pretty_string(self, writer=None):
-        with_writer = writer is not None
+    def write_pretty_string(self, writer):
+        """
+        """
+        return self._write_pretty_string(writer, "")
 
-        if writer is None:
-            writer = StringIO()
-
-        self._pretty_string(writer, "")
-
-        if with_writer:
-            return writer
-
+    def pretty_string(self):
+        writer = self.write_pretty_string(StringIO())
         writer.seek(0)
         return writer.read()
 
