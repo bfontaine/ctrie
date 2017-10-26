@@ -342,8 +342,10 @@ class CTrie(object):
         Compute the number of words in the trie. This result should be cached
         because we're recursively checking every node in the trie.
         """
-        init = 1 if self.terminal else 0
-        return init + sum(map(len, self._children.values()))
+        total = 1 if self.terminal else 0
+        for ch in self._children.values():
+            total += len(ch)
+        return total
 
     def __eq__(self, other):
         """
