@@ -8,6 +8,8 @@ This module provides a compact trie (``CTrie``) implementation for Python.
 
 __version__ = '0.1.1'
 
+from io import StringIO
+
 
 def _cut_prefix(prefix, word):
     """
@@ -322,6 +324,34 @@ class CTrie(object):
             return root
 
         return CTrie()
+
+    def _pretty_string(self, writer, indent_string):
+        if self.terminal:
+            writer.write("\n")
+
+        for prefix, ch in self._children.items():
+            writer.write("%s%s" % (indent_string, prefix))
+            ch._pretty_string(writer, indent_string + " " * len(prefix))
+
+        return writer
+
+
+    def pretty_string(self, writer=None):
+        with_writer = writer is not None
+
+        if writer is None:
+            writer = StringIO()
+
+        self._pretty_string(writer, "")
+
+        if with_writer:
+            return writer
+
+        writer.seek(0)
+        return writer.read()
+
+
+    # magic methods
 
     def __contains__(self, word):
         """

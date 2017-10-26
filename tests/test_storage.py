@@ -207,6 +207,18 @@ class TestStorage(unittest.TestCase):
         st = self.ct.subtree('fo')
         self.assertSequenceEqual(['oa', 'ob', 'oc', 'od'], sorted(st.values()))
 
+    def test_pretty_string(self):
+        self.assertEqual("", self.ct.pretty_string())
+
+        self.ct.add("")
+        self.assertEqual("\n", self.ct.pretty_string())
+
+        self.ct.add("foo")
+        self.assertEqual("\nfoo\n", self.ct.pretty_string())
+
+        self.ct.add("foobar")
+        self.assertEqual("\nfoo\n   bar\n", self.ct.pretty_string())
+
     # ==
 
     def test_eq_empty_other_collections(self):
